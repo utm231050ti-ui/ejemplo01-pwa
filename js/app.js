@@ -1,14 +1,21 @@
-//obtenemos la url del servidor
-var url=window.location.href;
-//definimos que nuestro sw.js se encuentra en el repositorio
-var ubicacionSw='/Ejemplo-PWA/sw.js';
-if ( navigator.serviceWorker ) {
-/*Para que nuestro proyecto siga funcionando en localhost
-como en el servidor realizaremos una validación si la url
-contiene localhost la ruta es la local del proyecto, de lo contrario
-es la ruta de nuestro repositorio*/
-if(url.includes('localhost')){
-ubicacionSw='/sw.js';
+// Obtenemos la URL del servidor
+var url = window.location.href;
+
+// Definimos dónde se encuentra nuestro sw.js
+var ubicacionSw = '/ejemplo1-pwa/sw.js';
+
+// Validamos si estamos trabajando en localhost
+if (url.includes('localhost')) {
+    ubicacionSw = '/sw.js';
 }
-navigator.serviceWorker.register(ubicacionSw);
+
+// Registramos el Service Worker
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register(ubicacionSw)
+        .then(registro => {
+            console.log('Service Worker registrado correctamente');
+        })
+        .catch(error => {
+            console.log('Error al registrar Service Worker:', error);
+        });
 }
